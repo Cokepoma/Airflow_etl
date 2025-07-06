@@ -4,3 +4,4 @@ pandas
 numpy
 apache-airflow-providers-odbc 
 apache-airflow-providers-microsoft-mssql 
+sqlalchemy

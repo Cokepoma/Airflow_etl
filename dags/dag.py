@@ -1,12 +1,17 @@
+#Airfow
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.providers.microsoft.mssql.hooks.mssql import MsSqlHook
+
+#funciones
+from scripts.extract import copiar_tabla
+
 from datetime import datetime
 
-def test_sql():
-    hook = MsSqlHook(mssql_conn_id="mi_sqlserver")
-    result = hook.get_records("SELECT TOP 5 * FROM AdventureWorks2022.HumanResources.Department")
-    return result
+tablas = [
+    'Sales.SalesOrderHeader',
+    'Sales.SalesOrderDetail'
+]
 
 with DAG(
     dag_id="prueba_sqlserver",
@@ -14,7 +19,13 @@ with DAG(
     schedule="@once",
     catchup=False,
 ) as dag:
-    prueba = PythonOperator(
-        task_id="sacadatos",
-        python_callable=test_sql
-    )
+    for tabla in tablas:
+            PythonOperator(
+                task_id=f"copiar_{tabla.replace('.', '_')}",
+                python_callable=copiar_tabla,
+                op_kwargs={
+                    "tabla": tabla,
+                    "origen_conn_id": "sqlserver_origen",
+                    "destino_conn_id": "sqlserver_destino"
+                }
+            )

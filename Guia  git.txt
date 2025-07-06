@@ -1,0 +1,63 @@
+¡Buena decisión! Usar GitHub para trabajar tu proyecto de Python es una excelente manera de mantenerlo seguro, organizado y versionado. Aquí te dejo los pasos básicos para empezar:
+
+✅ 1. Prepara tu proyecto local
+Asegúrate de tener una carpeta de proyecto en tu computadora con tu código Python.
+
+Ejemplo de estructura:
+
+css
+Copy
+Edit
+mi_proyecto/
+├── main.py
+├── requirements.txt
+└── README.md
+✅ 2. Inicializa un repositorio Git en tu proyecto
+Abre una terminal en la carpeta del proyecto y ejecuta:
+
+bash
+Copy
+Edit
+git init
+Esto crea un repositorio Git local.
+
+✅ 3. Crea un archivo .gitignore
+Esto es para evitar subir archivos innecesarios como cachés, entornos virtuales, etc.
+
+Crea un archivo .gitignore con este contenido básico:
+
+bash
+Copy
+Edit
+__pycache__/
+*.pyc
+.env
+venv/
+✅ 4. Haz tu primer commit
+bash
+Copy
+Edit
+git add .
+git commit -m "Primer commit: estructura inicial del proyecto"
+✅ 5. Sube tu proyecto a GitHub
+Ve a https://github.com y crea un repositorio nuevo.
+
+NO marques la opción de crear README si ya tienes uno local.
+
+Luego copia los comandos que GitHub te da, algo así:
+
+bash
+Copy
+Edit
+git remote add origin https://github.com/tu_usuario/tu_repositorio.git
+git branch -M main
+git push -u origin main
+✅ 6. Trabaja normalmente
+Cada vez que hagas cambios:
+
+bash
+Copy
+Edit
+git add .
+git commit -m "Descripción de lo que hiciste"
+git push
