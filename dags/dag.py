@@ -3,8 +3,8 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.providers.microsoft.mssql.hooks.mssql import MsSqlHook
 #funciones
-from scripts.extract import compare_table_data_with_hash
-from scripts.extract import usar_ids_de_snapshot
+from scripts.extract import compare_table_data_with_hash ,update_snapshot , usar_ids_de_snapshot
+
 #libreras básicass
 from datetime import datetime
 
@@ -31,4 +31,12 @@ with DAG(
             "origen_conn_id": "sqlserver_origen"
         }
     )
-    snapshot_Sales >> procesar_ids
+    update_snapshot_s = PythonOperator(
+        task_id="update_snapshot",
+        python_callable=update_snapshot,
+        op_kwargs={
+            "tabla": "Sales.SalesOrderDetail",
+            "origen_conn_id": "sqlserver_origen"
+        }
+    )
+    snapshot_Sales >> procesar_ids >> update_snapshot_s
