@@ -29,7 +29,9 @@ services:
         max-size: 10m    
     volumes:
       - ./dags:/opt/airflow/dags
-      - ./scripts://opt/airflow/scripts
+      - ./scripts:/opt/airflow/scripts
+      - ./logs:/opt/airflow/logs
+
     ports:
       - "8080:8080"
     command: standalone
