@@ -52,6 +52,10 @@ def compare_table_data_with_hash(tabla, origen_conn_id, destino_conn_id, **kwarg
         FROM cte c
         JOIN pruebas_load.dbo.Snapshot_SalesOrderDetail t 
           ON c.id = t.id AND t.HashFila <> c.HashFila
+                union all
+        select c.*
+        from cte c
+		where not exists (select 1 from pruebas_load.dbo.SalesOrderDetail t  where c.id = t.SalesOrderDetailID)
     """
     logging.info("---datos comparados")
 
